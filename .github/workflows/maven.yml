@@ -2,13 +2,11 @@
 # For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-maven
 
 name: Java CI with Maven
-
 on:
   push:
     branches: [ main ]
   pull_request:
     branches: [ main ]
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -21,13 +19,6 @@ jobs:
         distribution: 'adopt'
     - name: maven
       run: mvn -B package --file pom.xml
-    - name: publish
-      uses: advancedcsg-open/action-jfrog-cli@master
-      with:
-        url: 'https://company.jfrog.io/'
-        credentials type: 'apikey'
-        apikey: ${{ secrets.RT_APIKEY }}
-        args: u "dist/*" "/mu/repo/path/" --recursive=true --build-name=myawesomeapp
   deploy-staging:
     name: Deploy to Staging 
     if: github.event.ref == 'refs/heads/main'
@@ -35,7 +26,7 @@ jobs:
     runs-on: self-hosted
     environment: 
       name: staging
-      url: 'http://win32.stage.cadence.com'
+      url: 'http://stage.cadence.com'
     steps:
     - name: Deploy
       run: echo I am deploying! 
