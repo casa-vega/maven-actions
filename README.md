@@ -1,1 +1,1 @@
-# maven-actions
+# maven-actions::hot-fix
